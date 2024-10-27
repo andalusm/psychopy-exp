@@ -13,7 +13,7 @@ Download `im.mat` from [https://osf.io/k4cyq](https://osf.io/k4cyq) and place it
 ## Step 3: First-Time Setup  
 1. Open `main.py` and modify the first line:
  ```python
-   db = Database(img_source, trial_num=3, load_imgs=True)
+   db = Database(img_source, trial_num=100, load_imgs=True)
   ```
 2. Run the script:
 ```bash
@@ -21,7 +21,7 @@ Download `im.mat` from [https://osf.io/k4cyq](https://osf.io/k4cyq) and place it
 ```
 3. After the first run, set `load_imgs` back to `False`:
 ```python
-  db = Database(img_source, trial_num=3, load_imgs=False)
+  db = Database(img_source, trial_num=100, load_imgs=False)
 ```
 ## Step 4: Run the Script
 To run the script in future:
