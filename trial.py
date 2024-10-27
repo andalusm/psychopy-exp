@@ -44,7 +44,7 @@ class Database:
         images = self.img_source[img_key_name_in_source]
         for i in range(len(images)):
             num = f"{i:04d}"
-            filename = f'im{num}.png'
+            filename = f'imgs/im{num}.png'
             plt.imsave(filename, images[i][0], cmap='gray')
 
     def get_all_trial_imgs(self):
@@ -67,10 +67,9 @@ def create_unique_filename(base_name, extension):
     """
     counter = 1
     filename = f"{base_name}{extension}"
-    while os.path.exists(filename):
+    while os.path.exists(f"logs/{filename}"):
         filename = f"{base_name}_{counter}{extension}"
         counter += 1
-
     return filename
 
 
@@ -106,7 +105,7 @@ class Visuals:
         :param imgs: group of 3 image names to simulate
         """
         self.imgs = [
-            visual.ImageStim(self.window, image=img, pos=pos)
+            visual.ImageStim(self.window, image=f"imgs/{img}", pos=pos)
             for img, pos in zip(imgs, [(-200, 0), (0, 0), (200, 0)])
         ]
 
@@ -154,7 +153,7 @@ class Visuals:
         core.wait(self.wait_timer)
 
     def append_to_log(self, trial_result):
-        with open(self.new_filename, 'a') as file:
+        with open(f"logs/{self.new_filename}", 'a') as file:
             file.write(trial_result)
 
     def runner(self):
@@ -162,7 +161,7 @@ class Visuals:
         Run the trial using TrialHandler then save the data each time into a new log file
         """
         self.new_filename = create_unique_filename(self.basename, ".csv")
-        with open(self.new_filename, 'w') as file:
+        with open(f"logs/{self.new_filename}", 'w') as file:
             file.write(f"image1, image2, image3, clicked_image, display_time, click_time")
         trials = data.TrialHandler(trialList=[{'choices': choices} for choices in self.all_imgs], nReps=1,
                                    autoLog=False)
